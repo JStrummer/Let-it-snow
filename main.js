@@ -7,6 +7,9 @@ canvas.width = container.offsetWidth;
 canvas.height = container.offsetHeight;
 
 var ctx = canvas.getContext('2d');
+var landscape = new Image();
+landscape.src = "img/landscape.png";
+var lsY = 0;
 
 function snowFlake (maxX, maxY) {
   var width = (Math.random() * 2) + 1;
@@ -30,6 +33,7 @@ function snowFlake (maxX, maxY) {
       if (y > maxY) {
         x = Math.random() * (maxX - width);
         y = -(Math.random() * maxY / 2);
+        lsY += 0.3;
       }
     }
   }
@@ -64,5 +68,8 @@ function anim () {
     flake.draw();
     flake.move();
   });
+  ctx.drawImage(landscape, 0, canvas.height - landscape.height - lsY);
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, canvas.height - lsY - 1, canvas.width, lsY + 1);
   requestAnimationFrame(anim);
 }
